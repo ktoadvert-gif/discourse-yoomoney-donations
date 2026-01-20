@@ -12,6 +12,16 @@ after_initialize do
   end
 
   require_relative "lib/yoomoney_donations/engine"
+  
+  require_relative "app/controllers/yoomoney_donations/notifications_controller"
 
-  Rails.logger.info "YooMoney Donations Plugin: Engine Loaded Successfully!"
+  YoomoneyDonations::Engine.routes.draw do
+    get "/status" => "notifications#status"
+  end
+
+  Discourse::Application.routes.append do
+    mount ::YoomoneyDonations::Engine, at: "/yoomoney"
+  end
+
+  Rails.logger.info "YooMoney Donations Plugin: Engine & Routes Loaded!"
 end
