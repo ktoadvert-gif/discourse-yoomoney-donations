@@ -32,7 +32,14 @@ module YoomoneyDonations
 
       if calculated_hash == params[:sha1_hash]
         amount_received = params[:withdraw_amount].to_f
-        ::YoomoneyDonations.add_amount(amount_received)
+        new_total = ::YoomoneyDonations.add_amount(amount_received)
+        
+        # Publish to MessageBus for real-time update
+        MessageBus.publish("/yoomoney/donations", { 
+          current: new_total, 
+          goal: SiteSetting.yoomoney_donation_goal.to_f 
+        })
+        
         render json: { status: "ok" }, status: 200
       else
         Rails.logger.warn("Yoomoney hash mismatch. Calculated: #{calculated_hash}, Received: #{params[:sha1_hash]}")
