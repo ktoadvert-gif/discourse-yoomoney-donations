@@ -6,9 +6,16 @@
 
 enabled_site_setting :yoomoney_donations_enabled
 
-after_initialize do
   module ::YoomoneyDonations
     PLUGIN_NAME = "discourse-yoomoney-donations"
+
+    def self.current_amount
+      Discourse.redis.get("yoomoney_current_amount").to_f
+    end
+
+    def self.add_amount(amount)
+      Discourse.redis.incrbyfloat("yoomoney_current_amount", amount)
+    end
   end
 
   require_relative "lib/yoomoney_donations/engine"
@@ -17,11 +24,12 @@ after_initialize do
 
   YoomoneyDonations::Engine.routes.draw do
     get "/status" => "notifications#status"
+    post "/notifications" => "notifications#receive"
   end
 
   Discourse::Application.routes.append do
     mount ::YoomoneyDonations::Engine, at: "/yoomoney"
   end
 
-  Rails.logger.info "YooMoney Donations Plugin: Engine & Routes Loaded!"
+  Rails.logger.info "YooMoney Donations Plugin: Logic Loaded!"
 end

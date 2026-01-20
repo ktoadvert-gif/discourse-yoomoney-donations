@@ -2,3 +2,11 @@ plugins:
   yoomoney_donations_enabled:
     default: true
     client: true
+  yoomoney_notification_secret:
+    default: ""
+  yoomoney_donation_goal:
+    default: 10000
+    client: true
+  yoomoney_wallet_id:
+    default: ""
+    client: true
