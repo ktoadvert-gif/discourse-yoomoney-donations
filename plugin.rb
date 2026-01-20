@@ -21,7 +21,7 @@ after_initialize do
   require_dependency "application_controller"
 
   class ::YoomoneyDonations::NotificationsController < ::ApplicationController
-    requires_plugin YoomoneyDonations::PLUGIN_NAME
+    # requires_plugin YoomoneyDonations::PLUGIN_NAME # causing boot issues
 
     skip_before_action :check_xhr, :verify_authenticity_token, only: [:receive, :status], raise: false
 
