@@ -1,0 +1,12 @@
+yoomoney_donations_enabled:
+  default: true
+  client: true
+yoomoney_notification_secret:
+  default: ""
+  secret: true
+yoomoney_donation_goal:
+  default: 25000
+  client: true
+yoomoney_wallet_id:
+  default: "4100115131228491"
+  client: true
