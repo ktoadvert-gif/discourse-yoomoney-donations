@@ -6,6 +6,7 @@
 
 enabled_site_setting :yoomoney_donations_enabled
 
+after_initialize do
   module ::YoomoneyDonations
     PLUGIN_NAME = "discourse-yoomoney-donations"
 
