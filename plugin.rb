@@ -32,5 +32,10 @@ after_initialize do
     mount ::YoomoneyDonations::Engine, at: "/yoomoney"
   end
 
+  # Allow public access to this MessageBus channel
+  MessageBus.register_client_message_filter("/yoomoney/donations") do |message, user_ids, group_ids, site_id|
+     true
+  end
+
   Rails.logger.info "YooMoney Donations Plugin: Logic Loaded!"
 end
