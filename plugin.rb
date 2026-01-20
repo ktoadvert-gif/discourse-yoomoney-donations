@@ -7,6 +7,11 @@
 enabled_site_setting :yoomoney_donations_enabled
 
 after_initialize do
-  Rails.logger.info "YooMoney Donations Plugin: Successfully verified connectivity!"
-  puts "YooMoney Donations Plugin: Successfully verified connectivity!"
+  module ::YoomoneyDonations
+    PLUGIN_NAME = "discourse-yoomoney-donations"
+  end
+
+  require_relative "lib/yoomoney_donations/engine"
+
+  Rails.logger.info "YooMoney Donations Plugin: Engine Loaded Successfully!"
 end
