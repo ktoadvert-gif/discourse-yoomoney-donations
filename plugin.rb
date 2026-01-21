@@ -7,8 +7,6 @@
 
 enabled_site_setting :yoomoney_donations_enabled
 
-register_asset "stylesheets/common/yoomoney-donations.scss"
-
 after_initialize do
   module ::YoomoneyDonations
     PLUGIN_NAME = "discourse-yoomoney-donations"
